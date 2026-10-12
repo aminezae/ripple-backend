@@ -12,8 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('messages', function (Blueprint $table) {
-            $table->integer('reply_to_message_id')->nullable();
-            $table->foreign('reply_to_message_id')->references('id')->on('messages')->nullOnDelete();
+            $table->foreignId('reply_to_message_id')->nullable()->constrained('messages')->nullOnDelete();
         });
     }
 
