@@ -10,10 +10,12 @@ return new class extends Migration
     {
         Schema::create('conversation_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('conversation_id')->constrained('conversations')->onDelete('cascade');
-            $table->integer('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->timestamp('created_at')->useCurrent();
+            
+            // This creates the correct data type (unsignedBigInteger) and links it automatically
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('conversation_id')->constrained()->cascadeOnDelete();
+            
+            $table->timestamps();
         });
     }
 
