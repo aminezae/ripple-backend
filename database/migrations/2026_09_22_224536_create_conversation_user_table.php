@@ -11,8 +11,8 @@ return new class extends Migration
         Schema::create('conversation_user', function (Blueprint $table) {
             $table->id();
             
-            // This creates the correct data type (unsignedBigInteger) and links it automatically
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->integer('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreignId('conversation_id')->constrained()->cascadeOnDelete();
             
             $table->timestamps();

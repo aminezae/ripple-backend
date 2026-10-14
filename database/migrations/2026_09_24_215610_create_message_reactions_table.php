@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('message_reactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('message_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->integer('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->string('emoji', 50);
             $table->timestamp('created_at')->useCurrent();
             

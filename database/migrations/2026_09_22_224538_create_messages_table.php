@@ -15,10 +15,12 @@ return new class extends Migration
             $table->id();
             $table->text('body')->nullable();
             $table->foreignId('conversation_id')->constrained('conversations')->cascadeOnDelete();
-            $table->foreignId('sender_id')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('receiver_id')->nullable()->constrained('users')->cascadeOnDelete();
+            $table->integer('sender_id');
+            $table->foreign('sender_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->integer('receiver_id')->nullable();
+            $table->foreign('receiver_id')->references('id')->on('users')->cascadeOnDelete();
             $table->timestamp('read_at')->nullable();
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 
